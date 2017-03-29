@@ -6,9 +6,9 @@ Finds all paths through 2D n by m grid based on a list of blocked points and a l
 # PathFinder
 
 ##### Arguments
-The Path Finder class takes in arguments:
+The PathFinder class takes in arguments:
 * `n` and `m` the dimensions of the sub-space
-* `blocks` a list of blocked points (ex: `[(2, 1), (1,2)]`
+* `blocks` a list of blocked points (ex: `[(2, 1), (1,2)]` cannot travel through points 2,1 or 1,2
 * `detours` a list of detours (ex: `[((2,1), (0, 3))]` will jump from point 2,1 to point 0,3 if landed on)
 
 ##### Methods
