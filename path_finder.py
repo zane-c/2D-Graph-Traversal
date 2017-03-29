@@ -27,7 +27,6 @@ class Path:
                 self.coords = end
                 self.history += [end]
 
-
     def can_move(self, direction):
         """
             Checks to see if the current path obj
@@ -53,7 +52,7 @@ class Path:
             goal coordinates.
         """
         return self.coords[0] == self.goal[0] \
-               and self.coords[1] == self.goal[1]
+            and self.coords[1] == self.goal[1]
 
     def __str__(self):
         return str(self.history)
@@ -90,7 +89,7 @@ class PathFinder:
             closer to it. Once all active paths terminate, results
             are logged for later use in below functions.
         """
-        seed = Path((0,0), [], self.blocks, self.detours, self.goal)
+        seed = Path((0, 0), [], self.blocks, self.detours, self.goal)
         active = [seed]
 
         while len(active) > 0:
@@ -100,7 +99,7 @@ class PathFinder:
                 if current.is_goal():
                     self.complete_paths.append(str(current))
                 else:
-                    for m in [(0,1), (1,0)]:
+                    for m in [(0, 1), (1, 0)]:
                         if current.can_move(m):
                             new_coords = (current.coords[0] + m[0], current.coords[1] + m[1])
                             temp.append(Path(new_coords, current.history, self.blocks, self.detours, self.goal))
@@ -116,7 +115,7 @@ class PathFinder:
 
     def get_paths(self):
         """
-            Returns a comma seperated list
+            Returns a comma separated list
             of all paths through the grid.
         """
         all_paths = ""

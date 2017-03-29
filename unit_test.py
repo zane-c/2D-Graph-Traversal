@@ -1,6 +1,7 @@
 import unittest
 from path_finder import *
 
+
 class TestPathFinder(unittest.TestCase):
 
     def test_2by2(self):
@@ -16,7 +17,7 @@ class TestPathFinder(unittest.TestCase):
             TEST CASE:
             5 5 ((2,1)) ()
         """
-        finder = PathFinder(5, 5, [(2,1)], [])
+        finder = PathFinder(5, 5, [(2, 1)], [])
         self.assertEqual(finder.number_of_paths(), 40)
 
     def test_jumps(self):
@@ -24,7 +25,7 @@ class TestPathFinder(unittest.TestCase):
             TEST CASE:
             5 5 () (((2,1),(0,3)))
         """
-        finder = PathFinder(5, 5, [], [((2,1),(0,3))])
+        finder = PathFinder(5, 5, [], [((2, 1), (0, 3))])
         self.assertEqual(finder.number_of_paths(), 55)
 
     def test_1by5(self):
@@ -32,17 +33,16 @@ class TestPathFinder(unittest.TestCase):
             TEST CASE:
             1 5 () (((0,1),(0,4)))
         """
-        finder = PathFinder(1, 5, [], [((0,1),(0,4))])
+        finder = PathFinder(1, 5, [], [((0, 1), (0, 4))])
         self.assertEqual(finder.number_of_paths(), 1)
         self.assertEqual(finder.get_paths(), '[(0, 0), (0, 1), (0, 4)]')
-
 
     def test_no_solution(self):
         """
             TEST CASE:
             2 2 ((0,1),(1,0)) ()
         """
-        finder = PathFinder(2, 2, [(1,0),(0,1)], [])
+        finder = PathFinder(2, 2, [(1, 0), (0, 1)], [])
         self.assertEqual(finder.number_of_paths(), 0)
 
     def test_correct_path(self):
@@ -50,7 +50,7 @@ class TestPathFinder(unittest.TestCase):
             TEST CASE:
             3 3 ((0,1),(1,1)) ()
         """
-        finder = PathFinder(3, 3, [(0,1),(1,1)], [])
+        finder = PathFinder(3, 3, [(0, 1), (1, 1)], [])
         self.assertEqual(finder.number_of_paths(), 1)
         self.assertEqual(finder.get_paths(), '[(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]')
 
