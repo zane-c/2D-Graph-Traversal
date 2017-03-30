@@ -13,7 +13,7 @@ The PathFinder class takes in arguments:
 
 ##### Methods
 * `number_of_paths()` returns the number of possible paths through the grid
-* `get_paths()` returns a comma-separated string of possible paths through the grid
+* `get_paths()` returns a list of all possible paths through the grid
 
 ##### Example Usage
 
@@ -22,7 +22,7 @@ The PathFinder class takes in arguments:
      > print(finder.number_of_paths())
      1
      > print(finder.get_paths())
-     [(0, 0), (0, 1), (0, 4)]
+     [[(0, 0), (0, 1), (0, 4)]]
      
      > finder = PathFinder(2, 2, [], [])
      > finder.number_of_paths()
