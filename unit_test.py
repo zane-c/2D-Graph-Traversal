@@ -34,7 +34,7 @@ class TestPathFinder(unittest.TestCase):
         """
         finder = PathFinder(1, 5, [], [((0, 1), (0, 4))])
         self.assertEqual(finder.number_of_paths(), 1)
-        self.assertEqual(finder.get_paths, '[(0, 0), (0, 1), (0, 4)]')
+        self.assertEqual(finder.get_paths(), [[(0, 0), (0, 1), (0, 4)]])
 
     def test_no_solution(self):
         """
@@ -66,7 +66,7 @@ class TestPathFinder(unittest.TestCase):
         """
         finder = PathFinder(3, 3, [(0, 1), (1, 1)], [])
         self.assertEqual(finder.number_of_paths(), 1)
-        self.assertEqual(finder.get_paths, '[(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]')
+        self.assertEqual(finder.get_paths(), [[(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]])
 
 
 if __name__ == '__main__':

@@ -86,7 +86,7 @@ class PathFinder:
             while len(active) > 0:
                 current = active.pop()
                 if current.is_goal():
-                    complete_paths.append(str(current))
+                    complete_paths.append(current.history)
                 else:
                     for m in [(0, 1), (1, 0)]:
                         if current.can_move(m):
@@ -102,19 +102,14 @@ class PathFinder:
         """
         return self.num_paths
 
-    @property
     def get_paths(self):
         """
             Returns a comma separated list
             of all paths through the grid.
         """
-        if self.goal[0] * self.goal[1] >= 40:
+        if self.goal[0] * self.goal[1] >= 100:
             return "Grid too large to find all paths"
-
-        all_paths = ""
-        for p in self.complete_paths:
-            all_paths += p + ','
-        return all_paths[:-1]
+        return self.complete_paths
 
 
 class Path:
