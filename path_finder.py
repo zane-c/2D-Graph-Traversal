@@ -1,3 +1,6 @@
+import math
+
+
 class Path:
     """
         Path class represents a path through an n by m
@@ -41,7 +44,7 @@ class Path:
         for blocked_point in self.blocks:
             if point == blocked_point:
                 return False
-                
+
         if dx < 0 or dx > self.goal[0] or dy < 0 or dy > self.goal[1]:
             return False
         return True
@@ -70,17 +73,49 @@ class PathFinder:
 
     def __init__(self, n, m, blocks, detours):
         """
-            Initializes instance variables and then
-            calls find_solution
+            If grid is too big to find individual paths, quick_count is 
+            called and only the number of paths is counted not the specific
+            points that comprise that path. If the grid is smaller than 100 
+            total cells, find_paths is called.
         """
-        self.blocks = blocks
-        self.detours = detours
-        self.goal = (n-1, m-1)
-        self.complete_paths = []
-        self.num_paths = 0
-        self.find_solution()
+        if m * n >= 100:
+            self.num_paths = self.quick_count(n, m, blocks, detours)
+        else:
+            self.blocks = blocks
+            self.detours = detours
+            self.goal = (n - 1, m - 1)
+            self.complete_paths = []
+            self.num_paths = 0
+            self.find_paths()
 
-    def find_solution(self):
+    def quick_count(self, n, m, blocks, detours):
+        """
+            Counts all total number of paths through the m by n
+            grid that don't pass through the points in the blocks
+            list and take detours if a point in detours is reached
+        """
+        def nCr(n, r):
+            return math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
+
+        def count_blocked_paths(x, y, n, m):
+            toP = nCr(x + y, y)
+            fromP = nCr(n - 1 - x + m - 1 - y, n - 1 - x)
+            return toP * fromP
+
+        def count_detour_paths(p1, p2, n, m):
+            blocked = count_blocked_paths(p1[0], p1[1], n, m)
+            toP = nCr(p1[0] + p1[1], p1[1])
+            fromP = nCr(n - 1 - p2[0] + m - 1 - p2[1], m - 1 - p2[1])
+            return toP * fromP - blocked
+
+        total = nCr(n + m - 2, n - 1)
+        for i in blocks:
+            total -= count_blocked_paths(i[0], i[1], n, m)
+        for d in detours:
+            total += count_detour_paths(d[0], d[1], n, m)
+        return total
+
+    def find_paths(self):
         """
             defines a list of active paths (paths that are not
             complete or dead end), and adds the first seed path
@@ -105,7 +140,7 @@ class PathFinder:
                             temp.append(Path(new_coords, current.history, self.blocks, self.detours, self.goal))
             active = temp.copy()
         self.num_paths = len(self.complete_paths)
-    
+
     def number_of_paths(self):
         """
             number of complete paths through
@@ -118,6 +153,9 @@ class PathFinder:
             Returns a comma separated list
             of all paths through the grid.
         """
+        if self.goal[0] * self.goal[1] >= 40:
+            return "Grid too large to find all paths"
+
         all_paths = ""
         for p in self.complete_paths:
             all_paths += p + ','

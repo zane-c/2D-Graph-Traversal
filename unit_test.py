@@ -1,5 +1,6 @@
 import unittest
 from path_finder import *
+from count_paths import *
 
 
 class TestPathFinder(unittest.TestCase):
@@ -54,6 +55,20 @@ class TestPathFinder(unittest.TestCase):
         self.assertEqual(finder.number_of_paths(), 1)
         self.assertEqual(finder.get_paths(), '[(0, 0), (1, 0), (2, 0), (2, 1), (2, 2)]')
 
+    def test_quick_count(self):
+        """
+            TEST CASE:
+            quick count large grid
+        """
+        finder = PathFinder(50, 50, [], [])
+        self.assertEqual(finder.number_of_paths(), 25477612258980856902730428600)
+
+    def test_quick_count_with_blocks(self):
+        """
+            TEST CASE:
+        """
+        finder = PathFinder(50, 50, [(25, 25)], [])
+        self.assertEqual(finder.number_of_paths(), 21401173121235900936646037400)
 
 if __name__ == '__main__':
     unittest.main()
